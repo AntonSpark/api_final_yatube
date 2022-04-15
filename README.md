@@ -40,8 +40,9 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Далее все запросы производятся в програме Postman
-Возможные Api запросы:
+### Далее все запросы производятся в програме Postman
+
+#### Возможные Api запросы:
 ```
 /api/v1/users/  (POST): передаём логин и пароль, /api/v1/create/получаем токен
 ```

@@ -45,7 +45,6 @@ class FollowSerializer(serializers.ModelSerializer):
     )
     following = serializers.SlugRelatedField(
         slug_field='username',
-        read_only=False,
         queryset=User.objects.all(),
     )
 
@@ -58,8 +57,8 @@ class FollowSerializer(serializers.ModelSerializer):
                 fields=('user', 'following')
             )
         ]
-
-    def validate_follow(self, following):
+    
+    def validate_following(self, following):
         if self.context.get('request').user == following:
             raise serializers.ValidationError(
                 'Подписка на себя невозможна'

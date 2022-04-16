@@ -64,6 +64,12 @@ python manage.py runserver
 ```
 /posts/{post_id}/comments/{comment_id}/ (GET, PUT, PATCH, DELETE): получаем, редактируем или удаляем комментарий по id
 ```
-
+```
+/api/v1/posts/?limit=5&offset=0 (Get): получаем список постов с 1 по 5 (пагинация)
+```
+```
+/api/v1/follow/group/ (Post, Get): Получаем список групп или создаем пописку
+```
+```
 ## Автор
 Антон Искров

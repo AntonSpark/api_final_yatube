@@ -3,15 +3,10 @@ from rest_framework.pagination import LimitOffsetPagination
 from django.shortcuts import get_object_or_404
 
 from posts.models import Group, Post, User
-
 from .permissions import AuthorPermission
 from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
                           PostSerializer)
-
-
-class CreateListViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
-                        viewsets.GenericViewSet):
-    pass
+from .mixins import CreateListViewSet
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -43,7 +38,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         return post.comments.select_related('author')
 
 
-class FollowViewSet(CreateListViewSet):
+class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.SearchFilter,)
@@ -53,5 +48,4 @@ class FollowViewSet(CreateListViewSet):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.request.user.username)
-        return user.follower
+        return self.request.user.follower.all()
